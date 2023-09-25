@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<!-- Navbar -->
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm p-2">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">Bench Board!</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul th:if="${#httpServletRequest.remoteUser != null}" class="navbar-nav container-fluid justify-content-start">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/calculator}">1RM Calculator</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/leaderboard}">Leaderboard</a>
+                </li>
+            </ul>
+            <form th:if="${#httpServletRequest.remoteUser != null}" class="container-fluid d-flex justify-content-end" th:action = "@{/logout}" method = "post">
+                <input type="submit" class="btn btn-danger" value = "Sign Out"/>
+            </form>
+
+            <ul th:if="${#httpServletRequest.remoteUser == null}" class="navbar-nav container-fluid justify-content-start">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+            </ul>
+            <div th:if="${#httpServletRequest.remoteUser == null}" class="container-fluid d-flex justify-content-end">
+                <a class="btn btn-primary" th:href="@{/login}">Log In</a>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

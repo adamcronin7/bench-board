@@ -1,0 +1,77 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec = "http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="fragments/head :: head">
+
+
+
+<body class="align-middle"><div th:replace="fragments/navbar :: navbar"></div>
+
+<div style="height: 50vh" class="container mx-auto d-flex flex-column align-items-center justify-content-center">
+    <div style="text-align: center">
+        <h1 class="text-center">Leaderboard</h1>
+    </div>
+    <div style="text-align: center">
+        <table class="table table-light table-hover" style="text-align: center">
+            <thread>
+                <tr>
+                    <th>Username</th>
+                    <th>Squat</th>
+                    <th>Bench</th>
+                    <th>Deadlift</th>
+                </tr>
+            </thread>
+            <tbody th:if="${leaderboardEntries.size() > 0}">
+            <tr th:each="entry : ${leaderboardEntries}">
+                <td th:text="${entry.username}"></td>
+                <td th:text="${entry.squat} + 'KGs'"></td>
+                <td th:text="${entry.bench} + 'KGs'"></td>
+                <td th:text="${entry.deadlift} + 'KGs'"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <button style="text-align: center" class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+        Add/Update
+    </button>
+    <div style="text-align: center; padding: 10px" class="alert alert-danger" th:if="${param.error}">
+        Please use valid inputs.
+    </div>
+</div>
+
+
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Add/Update Your Leaderboard Entry</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div>
+            Insert your one rep maxes and submit them to the scoreboard by clicking the button below.
+        </div>
+        <div class="dropdown mt-3">
+            <form th:action="@{/leaderboard}" th:object="${newEntry}" method="post">
+                <div class="form-group" style="margin: 5px;">
+                    <label for="squat">Squat (KGs):</label>
+                    <br>
+                    <small th:if="${leaderboardEntries.size() > 0}" th:text="'Current Value: ' + ${leaderboard.squat}"></small>
+                    <input class="form-control mb-3" th:field="${newEntry.squat}" id="squat" type="number" step="0.01" required/>
+                    <label for="bench">Bench (KGs):</label>
+                    <br>
+                    <small th:if="${leaderboardEntries.size() > 0}" th:text="'Current Value: ' + ${leaderboard.bench}"></small>
+                    <input class="form-control mb-3" th:field="${newEntry.bench}" id="bench" type="number" step="0.01" required/>
+                    <label for="deadlift">Deadlift (KGs):</label>
+                    <br>
+                    <small th:if="${leaderboardEntries.size() > 0}" th:text="'Current Value: ' + ${leaderboard.deadlift}"></small>
+                    <input class="form-control mb-3" th:field="${newEntry.deadlift}" id="deadlift" type="number" step="0.01" required/>
+                    <button class="btn btn-success btn-block" type="submit">Add/Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<h1>Error</h1>
+<div id='timestamp' th:text="'timestamp: ' + ${timestamp}"/>
+<div id='status' th:text="'status: ' + ${status}"/>
+<div id='error' th:text="'error: ' + ${error}"/>
+<div id='exception' th:text="'exception: ' + ${exception}"/>
+<div id='message' th:text="'message: ' + ${message}"/>
+<div id='errors' th:text="'errors: ' + ${errors}"/>
+<div id='trace' th:text="'trace: ' + ${trace}"/>
+<div id='path' th:text="'path: ' + ${path}"/>
+</body>
+</html>

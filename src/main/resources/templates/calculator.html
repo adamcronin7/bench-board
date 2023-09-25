@@ -1,0 +1,31 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec = "http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="fragments/head :: head">
+
+<body class="align-middle"><div th:replace="fragments/navbar :: navbar"></div>
+
+
+<div class="container mx-auto d-flex flex-column align-items-center justify-content-center" style="height: 70vh">
+    <form class="form mx-auto d-flex flex-column align-items-center justify-content-center" th:action="@{/calculate}" method="post">
+        <h1 class="text-center">One Rep Max Calculator</h1>
+        <div class="form-group">
+            <label for="weight">Weight (KGs): </label>
+            <input class="form-control mb-3" id="weight" name="weight" type="number" step="0.01" required/>
+            <label for="reps">Reps (1-12): </label>
+            <input class="form-control mb-3" id="reps" name="reps" type="number" required min="1" max="12"/>
+            <label for="rpe">RPE (6-10): </label>
+            <input class="form-control mb-3" id="rpe" name="rpe" type="number" required min="6" max="10"/>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-success btn-block" type="submit">Calculate</button>
+        </div>
+        <div style="text-align: center; padding: 10px" class="alert alert-danger" th:if="${param.error}">
+            Please use valid inputs.
+        </div>
+    </form>
+</div>
+
+
+</body>
+</html>
